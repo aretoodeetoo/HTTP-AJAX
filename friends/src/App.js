@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 
+import FriendList from './components/FriendList';
+
 class App extends Component {
   state = {
     friends: []
@@ -23,9 +25,8 @@ class App extends Component {
     return (
       <div className="App">
       <h1>Friends! Hello, Friends!</h1>
-      {this.state.friends.map(friend => (
-        <p>Hello, my name is {friend.name}.</p>
-      ))}
+      <FriendList
+      friends={this.state.friends} />
       </div>
     );
   }
