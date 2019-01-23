@@ -26,13 +26,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <div className="header">
       <h1>Friends! Hello, Friends!</h1>
+      </div>
+      <div className="bodyStyles">
       <div className="friendListContainer">
       <FriendList
       friends={this.state.friends} />
       </div>
       <div className="friendFormContainer">
       <FriendForm />
+      </div>
       </div>
       </div>
     );
