@@ -9,7 +9,7 @@ function FriendList(props){
             friend={friend}
             key={friend}
             />;
-        })}
+        })} 
         </div>
     );
 }
