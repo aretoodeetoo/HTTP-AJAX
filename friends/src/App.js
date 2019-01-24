@@ -5,10 +5,15 @@ import axios from 'axios';
 import FriendList from './components/FriendList';
 import FriendForm from './components/FriendForm';
 
-
+const baseUrl = 'http://localhost:5000';
 class App extends Component {
   state = {
-    friends: []
+    friends: [],
+    friend: {
+      name: '',
+      age: '',
+      email: ''
+    }
   };
   
   componentDidMount(){
@@ -23,6 +28,29 @@ class App extends Component {
     });
   }
 
+  handleChanges = e => {
+    e.persist();
+    this.setState(prevState => {
+      return {
+        friend: {
+          ...prevState.friend,
+          [e.target.name]: e.target.value
+        }
+      };
+    });
+  };
+
+  addFriend = friend => {
+    axios
+    .post(`${baseUrl}/friends`, this.state.friend)
+    .then(res => {
+      console.log(res)
+      this.setState({friends: res.data });
+      this.props.history.push('/friends');
+    })
+    .catch(err => console.log(err));
+  }
+
   render() {
     return (
       <div className="App">
@@ -35,7 +63,10 @@ class App extends Component {
       friends={this.state.friends} />
       </div>
       <div className="friendFormContainer">
-      <FriendForm />
+      <FriendForm
+      addFriend={this.addFriend}
+      friend={this.state.friend}
+      handleChanges={this.handleChanges}/>
       </div>
       </div>
       </div>
