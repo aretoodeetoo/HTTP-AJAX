@@ -1,5 +1,6 @@
 import React from 'react';
 import Friend from './Friend';
+import { NavLink } from 'react-router-dom';
 
 function FriendList(props){
     return (
@@ -10,6 +11,7 @@ function FriendList(props){
             key={friend.id}
             />;
         })} 
+        <NavLink to="/">Return Home</NavLink>
         </div>
     );
 }

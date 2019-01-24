@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import { Route } from 'react-router-dom';
 
+import Home from './components/Home';
 import FriendList from './components/FriendList';
 import FriendForm from './components/FriendForm';
 
@@ -99,18 +101,21 @@ class App extends Component {
       </div>
       <div className="bodyStyles">
       <div className="friendListContainer">
-      <FriendList
+      <Route exact path="/" component={Home} />
+      <Route exact path="/friends" render={props => <FriendList {...props}
       friends={this.state.friends}
       deleteFriend={this.deleteFriend}
-      populateForm={this.populateForm} />
+      populateForm={this.populateForm} />}
+      />
       </div>
       <div className="friendFormContainer">
-      <FriendForm
-      addFriend={this.addFriend}
-      friend={this.state.friend}
-      handleChanges={this.handleChanges}
-      isUpdating={this.state.isUpdating}
-      updateFriend={this.updateFriend}/>
+      <Route exact path="/form" render={props => <FriendForm {...props}
+        addFriend={this.addFriend}
+        friend={this.state.friend}
+        handleChanges={this.handleChanges}
+        isUpdating={this.state.isUpdating}
+        updateFriend={this.updateFriend}
+      /> } />
       </div>
       </div>
       </div>
