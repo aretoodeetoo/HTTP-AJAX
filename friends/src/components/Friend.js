@@ -7,6 +7,7 @@ function Friend(props){
         <h3>Hello, I'm {props.friend.name}!</h3>
         <div className="middleDiv">I am {props.friend.age} years old.</div>
         <div>You can contact me at {props.friend.email}.</div>
+        <button>Delete Friend</button>
         </div>
     );
 }

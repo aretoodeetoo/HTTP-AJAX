@@ -6,14 +6,16 @@ import FriendList from './components/FriendList';
 import FriendForm from './components/FriendForm';
 
 const baseUrl = 'http://localhost:5000';
+const baseFriend = {
+  name: '',
+  age: '',
+  email: ''
+}
 class App extends Component {
   state = {
     friends: [],
-    friend: {
-      name: '',
-      age: '',
-      email: ''
-    }
+    friend: baseFriend,
+    isUpdating: false
   };
   
   componentDidMount(){
@@ -40,7 +42,7 @@ class App extends Component {
     });
   };
 
-  addFriend = friend => {
+  addFriend = () => {
     axios
     .post(`${baseUrl}/friends`, this.state.friend)
     .then(res => {
@@ -49,6 +51,44 @@ class App extends Component {
       this.props.history.push('/friends');
     })
     .catch(err => console.log(err));
+  }
+
+  deleteFriend = (e, friendId) => {
+    e.preventDefault();
+    axios
+      .delete(`${baseUrl}/friends/${friendId}`)
+      .then(res => {
+        this.setState({ friends: res.data });
+        this.props.history.push('/friends');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  populateForm = (e, id) => {
+    e.preventDefault();
+    this.setState({
+      friend: this.state.friends.find(friend => friend.id === id),
+      isUpdating: true
+    });
+    this.props.history.push('/friends');
+  }
+
+  updateFriend = () => {
+    axios
+      .put(`${baseUrl}/friends/${this.state.friend.id}`, this.state.friend)
+      .then(res => {
+        this.setState({
+          friends: res.data,
+          isUpdating: false,
+          friend: baseFriend
+        });
+        this.props.history.push('./friends');
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   render() {
@@ -60,13 +100,17 @@ class App extends Component {
       <div className="bodyStyles">
       <div className="friendListContainer">
       <FriendList
-      friends={this.state.friends} />
+      friends={this.state.friends}
+      deleteFriend={this.deleteFriend}
+      populateForm={this.populateForm} />
       </div>
       <div className="friendFormContainer">
       <FriendForm
       addFriend={this.addFriend}
       friend={this.state.friend}
-      handleChanges={this.handleChanges}/>
+      handleChanges={this.handleChanges}
+      isUpdating={this.state.isUpdating}
+      updateFriend={this.updateFriend}/>
       </div>
       </div>
       </div>
