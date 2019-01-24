@@ -6,11 +6,15 @@ function FriendList(props){
     return (
         <div className="friendContainer">
         {props.friends.map(friend => {
-            return <Friend 
+           return( 
+           <Friend 
+            friends={props.friends}
             friend={friend}
+            friendId={friend.id}
             key={friend.id}
-            />;
-        })} 
+            deleteFriend={props.deleteFriend}
+            />
+        )})} 
         <NavLink to="/">Return Home</NavLink>
         </div>
     );

@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import Home from './components/Home';
 import FriendList from './components/FriendList';
 import FriendForm from './components/FriendForm';
+import Friend from './components/Friend';
 
 const baseUrl = 'http://localhost:5000';
 const baseFriend = {
@@ -104,12 +105,20 @@ class App extends Component {
       <Route exact path="/" component={Home} />
       <Route exact path="/friends" render={props => <FriendList {...props}
       friends={this.state.friends}
-      deleteFriend={this.deleteFriend}
-      populateForm={this.populateForm} />}
+       />}
       />
       </div>
+      <Route path="/friends/:friendId" render={props =>
+      <Friend 
+      friends={this.state.friends}
+      friend={this.state.friend}
+      deleteFriend={this.deleteFriend}
+      populateForm={this.populateForm} /> } 
+      />
+
       <div className="friendFormContainer">
-      <Route exact path="/form" render={props => <FriendForm {...props}
+      <Route exact path="/form" render={props => 
+      <FriendForm {...props}
         addFriend={this.addFriend}
         friend={this.state.friend}
         handleChanges={this.handleChanges}
