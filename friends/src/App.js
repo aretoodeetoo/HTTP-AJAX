@@ -75,7 +75,7 @@ class App extends Component {
       friend: this.state.friends.find(friend => friend.id === id),
       isUpdating: true
     });
-    this.props.history.push('/friends');
+    this.props.history.push('/form');
   }
 
   updateFriend = () => {
@@ -103,15 +103,16 @@ class App extends Component {
       <div className="bodyStyles">
       <div className="friendListContainer">
       <Route exact path="/" component={Home} />
-      <Route exact path="/friends" render={props => <FriendList {...props}
+      <Route exact path="/friends" render={props => 
+      <FriendList 
+      {...props}
       friends={this.state.friends}
-       />}
+      />}
       />
       </div>
       <Route path="/friends/:friendId" render={props =>
-      <Friend 
+      <Friend {...props}
       friends={this.state.friends}
-      friend={this.state.friend}
       deleteFriend={this.deleteFriend}
       populateForm={this.populateForm} /> } 
       />
