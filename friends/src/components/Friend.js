@@ -8,7 +8,7 @@ function Friend(props){
         <div className="middleDiv">I am {props.friend.age} years old.</div>
         <div>You can contact me at {props.friend.email}.</div>
         <button onClick={() => props.deleteFriend(props.friend.id)}>Delete This Friend</button>
-        <button>Edit This Friend</button>
+        <button onClick={() => props.populateForm(props.friend.id)}>Edit This Friend</button>
         </div>
     );
 }

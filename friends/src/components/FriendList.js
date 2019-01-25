@@ -9,6 +9,8 @@ function FriendList(props){
             friend={friend}
             key={friend.id}
             deleteFriend={props.deleteFriend}
+            populateForm={props.populateForm}
+            updateFriend={props.deleteFriend}
             />;
         })} 
         </div>

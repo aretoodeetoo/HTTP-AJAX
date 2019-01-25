@@ -13,7 +13,8 @@ class App extends Component {
       name: '',
       age: '',
       email: ''
-    }
+    },
+    isUpdating: false
   };
   
   componentDidMount(){
@@ -64,6 +65,34 @@ class App extends Component {
       })
   }
 
+  updateFriend = () => {
+    axios
+      .put(`${baseUrl}/friends/${this.state.friend.id}`, this.state.friend)
+      .then(res => {
+        this.setState({
+          friends: res.data,
+          isUpdating: false,
+          friend: {
+            name: '',
+            age: '',
+            email: ''
+          }
+        });
+        this.props.history.push('/friends');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  populateForm = id => {
+    this.setState({
+      friend: this.state.friends.find(friend => friend.id === id),
+      isUpdating: true
+    });
+    this.props.history.push('/friends');
+  }
+
   render() {
     return (
       <div className="App">
@@ -74,13 +103,17 @@ class App extends Component {
       <div className="friendListContainer">
       <FriendList
       friends={this.state.friends}
-      deleteFriend={this.deleteFriend} />
+      deleteFriend={this.deleteFriend}
+      populateForm={this.populateForm}
+      updateFriend={this.updateFriend} />
       </div>
       <div className="friendFormContainer">
       <FriendForm
       addFriend={this.addFriend}
       friend={this.state.friend}
-      handleChanges={this.handleChanges}/>
+      handleChanges={this.handleChanges}
+      isUpdating={this.state.isUpdating}
+      updateFriend={this.updateFriend}/>
       </div>
       </div>
       </div>

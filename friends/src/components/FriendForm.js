@@ -2,10 +2,19 @@ import React from 'react';
 import './Friend.css';
 
 function FriendForm(props){
+
+    function handleSubmit(e){
+        e.preventDefault();
+        if (props.isUpdating) {
+            props.updateFriend();
+        } else {
+            props.addFriend();
+        }
+    }
     return(
     <div>
-        <h3>Add a New Friend!</h3>
-    <form onSubmit={props.addFriend}>
+        <h3>{props.isUpdating ? "Update Friend" : "Add New Friend"}</h3>
+    <form onSubmit={handleSubmit}>
         <input 
         type="text"
         name="name"
@@ -28,7 +37,7 @@ function FriendForm(props){
         onChange={props.handleChanges}
         />
         <div className="formButtons">
-        <button type="submit">Add Your Friend</button>
+        <button type="submit">{props.isUpdating ? "Edit Friend" : "Add New Friend"}</button>
         </div>
     </form>
     </div>
