@@ -9,7 +9,6 @@ function Home(props){
         <div className="homeNavLinks">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/friends">Friends List</NavLink>
-            <NavLink to="/form">Enter Friend Form</NavLink>
         </div>
         </div>
     );

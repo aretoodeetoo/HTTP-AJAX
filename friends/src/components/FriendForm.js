@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import './Friend.css';
 
 function FriendForm(props){
@@ -32,8 +31,6 @@ function FriendForm(props){
         <button type="submit">Add Your Friend</button>
         </div>
     </form>
-
-    <NavLink to="/">Return Home</NavLink>
     </div>
     );
 }
