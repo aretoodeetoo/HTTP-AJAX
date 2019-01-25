@@ -8,6 +8,7 @@ function FriendList(props){
             return <Friend 
             friend={friend}
             key={friend.id}
+            deleteFriend={props.deleteFriend}
             />;
         })} 
         </div>

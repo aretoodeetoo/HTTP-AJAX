@@ -40,7 +40,7 @@ class App extends Component {
     });
   };
 
-  addFriend = friend => {
+  addFriend = () => {
     axios
     .post(`${baseUrl}/friends`, this.state.friend)
     .then(res => {
@@ -49,6 +49,19 @@ class App extends Component {
       this.props.history.push('/friends');
     })
     .catch(err => console.log(err));
+  }
+
+  deleteFriend = friendID => {
+    axios
+      .delete(`${baseUrl}/friends/${friendID}`)
+      .then(res => {
+        console.log(res)
+        this.setState({ friends: res.data })
+        this.props.history.push('/friends')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   render() {
@@ -60,7 +73,8 @@ class App extends Component {
       <div className="bodyStyles">
       <div className="friendListContainer">
       <FriendList
-      friends={this.state.friends} />
+      friends={this.state.friends}
+      deleteFriend={this.deleteFriend} />
       </div>
       <div className="friendFormContainer">
       <FriendForm
